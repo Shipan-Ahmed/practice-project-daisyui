@@ -69,9 +69,23 @@ document.getElementById("cashout-btn").addEventListener("click", function () {
     // 5. get the pin and verify the pin
     const pin = getValueFromInput("cashout-pin");
     if (pin === "1234") {
-        // 5-1. true: show the new balance and alert the user that cashout is successful
-        alert("Cashout successful! Your new balance is: " + newBalance);
-        updateBalance(amount);
+      // 5-1. true: show the new balance and alert the user that cashout is successful
+      alert("Cashout successful! Your new balance is: " + newBalance);
+      updateBalance(amount);
+      // added money history
+      // 1. get the history container
+      const history = document.getElementById("history-container");
+      // 2. create a new history item
+      const historyItem = document.createElement("div");
+      // 3. add this.innerHTML to the history item
+      historyItem.innerHTML = `
+            <div class="transaction-card p-5 bg-base-100 rounded-lg mb-4">
+                Cashout successfully: ${amount} BDT to agent number ${agentNumber} on ${new Date()}
+            </div>
+        `;
+
+      // 4. append the history item to the history container
+      history.append(historyItem);
     } else {
         // 5-2. false: alert the user that pin is incorrect and return
         alert("Incorrect PIN. Please try again.");
